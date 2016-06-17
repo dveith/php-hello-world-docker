@@ -3,6 +3,9 @@ FROM ubuntu:12.04
 # Install dependencies
 RUN apt-get update -y
 RUN apt-get install -y git curl apache2 php5 libapache2-mod-php5 php5-mcrypt php5-mysql
+RUN apt-get install -y mc nano vim
+
+
 
 # Install app
 RUN rm -rf /var/www/*
@@ -14,6 +17,9 @@ RUN chown -R www-data:www-data /var/www
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
+
+# Configure TERM
+ENV TERM xterm
 
 EXPOSE 80
 
