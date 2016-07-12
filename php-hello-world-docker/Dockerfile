@@ -1,27 +1,13 @@
-FROM ubuntu:12.04
+FROM centos:latest
 
 # Install dependencies
-RUN apt-get update -y
-#RUN apt-get install -y git curl apache2 php5 libapache2-mod-php5 php5-mcrypt php5-curl
-RUN apt-get install -y git curl apache2 php5 php5-curl
-RUN apt-get install -y mc nano vim
-
-
-
-# Install app
-RUN rm -rf /var/www/*
-ADD src /var/www
-
-# Configure apache
-RUN a2enmod rewrite
-RUN chown -R www-data:www-data /var/www
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
+RUN yum -y update
+RUN yum -y install httpd
+RUN yum -y install  php php-curl php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
 
 # Configure TERM
 ENV TERM xterm
 
-EXPOSE 80
+#EXPOSE 80
 
-CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
+CMD ["/usr/sbin/httpd", "-D",  "FOREGROUND"]
