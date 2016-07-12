@@ -43,8 +43,9 @@
 
        echo "<tr>";
        $f = get_url_contents("http://169.254.169.254/latest/meta-data/instance-id/");
-       echo "<td>","<h2> instance id:  </h2>", "</td> <td><h2> ", $f, "  <font color = \"red\">(Container listening on port: 80)</font> </h2></td>";
-       echo "</tr>";
+       $prt = getenv("LISTENING_PORT");
+       echo "<td>","<h2> instance id:  </h2>", "</td> <td><h2> ", $f, "  <font color = \"red\">(Container listening on port: ", $prt, ")</font> </h2></td>";
+       echo "<tr>";
 
        echo "<tr>";
        $f = get_url_contents("http://169.254.169.254/latest/meta-data/instance-type/");
