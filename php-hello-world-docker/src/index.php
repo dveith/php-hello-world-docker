@@ -21,10 +21,6 @@
        }
 
        echo "<h1>";
-       echo "Running on Docker Container";
-       echo "</h1>";
-
-       echo "<h1>";
        $f = get_url_contents("http://169.254.169.254/latest/meta-data/hostname/");
        echo "<font color = \"blue\">Hostname: $f</font>";
        echo "</h1>";
@@ -47,7 +43,7 @@
 
        echo "<tr>";
        $f = get_url_contents("http://169.254.169.254/latest/meta-data/instance-id/");
-       echo "<td>","<h2> instance id:  </h2>", "</td> <td><h2> ", $f, " </h2></td>";
+       echo "<td>","<h2> instance id:  </h2>", "</td> <td><h2> ", $f, "  <font color = \"red\">(Container listening on port: 80)</font> </h2></td>";
        echo "</tr>";
 
        echo "<tr>";
