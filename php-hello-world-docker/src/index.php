@@ -1,35 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Simple PHP App</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-        <style>body {margin-top: 40}</style>
-        <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-        <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+html>
+ <head>
+   <title>Hello World v2 - Docker Container</title>
     </head>
+     <body>
+       <?php 
 
-    <body>
-        <div class="container">
-            <div class="hero-unit">
-                <h1>Simple PHP App</h1>
-                <h2>Congratulations</h2>
-                <p>Your PHP application is now running on a container.</p>
-                <p>The container is running PHP version <?php echo phpversion(); ?>.</p>
-                <?php
-                        $myfile = fopen("/var/www/my-vol/date", "r") or die("");
-                        echo fread($myfile,filesize("/var/www/my-vol/date"));
-                        fclose($myfile);
-                ?>
+       function get_url_contents($url){
+          $crl = curl_init();
+          $timeout = 5;
+          curl_setopt ($crl, CURLOPT_URL,$url);
+          curl_setopt ($crl, CURLOPT_RETURNTRANSFER, 1);
+          curl_setopt ($crl, CURLOPT_CONNECTTIMEOUT, $timeout);
+          $ret = curl_exec($crl);
+          curl_close($crl);
+          $pos = strpos($ret, "404");
+          if ($pos == true)
+             $ret = "undefined";
+          
+          return $ret;
+       }
 
-            </div>
-        </div>
+       echo "<h1>";
+       echo "Running on Docker Container";
+       echo "</h1>";
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+       echo "<h1>";
+       $f = get_url_contents("http://169.254.169.254/latest/meta-data/hostname/");
+       echo "<font color = \"blue\">Hostname: $f</font>";
+       echo "</h1>";
+
+       echo "<table>";
+       echo "<tr>";
+       $f = get_url_contents("http://169.254.169.254/latest/meta-data/placement/availability-zone/");
+       echo "<td>","<h2> zone:  </h2>", "</td> <td><h2> ", $f, " </h2></td>";
+       echo "</tr>";
+
+       echo "<tr>";
+       $f = get_url_contents("http://169.254.169.254/latest/meta-data/ami-id/");
+       echo "<td>","<h2> ami id:  </h2>", "</td> <td><h2> ", $f, " </h2></td>";
+       echo "</tr>";
+
+       echo "<tr>";
+       $f = get_url_contents("http://169.254.169.254/latest/meta-data/kernel-id/");
+       echo "<td>","<h2> kernel id:  </h2>", "</td> <td><h2> ", $f, " </h2></td>";
+       echo "</tr>";
+
+       echo "<tr>";
+       $f = get_url_contents("http://169.254.169.254/latest/meta-data/instance-id/");
+       echo "<td>","<h2> instance id:  </h2>", "</td> <td><h2> ", $f, " </h2></td>";
+       echo "</tr>";
+
+       echo "<tr>";
+       $f = get_url_contents("http://169.254.169.254/latest/meta-data/instance-type/");
+       echo "<td>","<h2> instance type:  </h2>", "</td> <td><h2> ", $f, " </h2></td>";
+       echo "</tr>";
+
+       echo "<tr>";
+       $f = get_url_contents("http://169.254.169.254/latest/meta-data/local-ipv4/");
+       echo "<td>","<h2> local ip:  </h2>", "</td> <td><h2><font color = \"red\"> ", $f, "</font> </h2></td>";
+       echo "</tr>";
+
+       echo "<tr>";
+       $f = get_url_contents("http://169.254.169.254/latest/meta-data/public-ipv4/");
+       echo "<td>","<h2> public ip:  </h2>", "</td> <td><h2> ", $f, " </h2></td>";
+       echo "</tr>";
+
+       echo "<tr>";
+       $f = get_url_contents("http://169.254.169.254/latest/meta-data/public-hostname/");
+       echo "<td>","<h2> public hostname:  </h2>", "</td> <td><h2> ", $f, " </h2></td>";
+       echo "</tr>";
+
+       echo "<tr>";
+       $date = date('m/d/Y h:i:s a', time());
+       echo "<td>","<h2> timestamp:  </h2>", "</td> <td><h2> ", $date, " </h2></td>";
+       echo "</tr>";
+       
+       echo "</table>";
+       echo "</h2>";
+       ?>
+
+       </h2>
     </body>
-
 </html>
