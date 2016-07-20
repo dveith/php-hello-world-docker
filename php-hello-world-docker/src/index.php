@@ -20,12 +20,18 @@
           return $ret;
        }
 
+
        echo "<h1>";
        $f = get_url_contents("http://169.254.169.254/latest/meta-data/hostname/");
        echo "<font color = \"blue\">Hostname: $f</font>";
        echo "</h1>";
 
        echo "<table>";
+
+       echo "<tr>";
+       echo "<td>","<img src=\"docker.gif\">   ", "</td>";
+       echo "</tr>";
+
        echo "<tr>";
        $f = get_url_contents("http://169.254.169.254/latest/meta-data/placement/availability-zone/");
        echo "<td>","<h2> zone:  </h2>", "</td> <td><h2> ", $f, " </h2></td>";
