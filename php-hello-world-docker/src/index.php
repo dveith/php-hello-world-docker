@@ -2,7 +2,7 @@
  <head>
    <title>Hello World v2 - Docker Container</title>
     </head>
-     <body>
+     <body bgcolor="#ffff99">
        <?php 
 
        function get_url_contents($url){
