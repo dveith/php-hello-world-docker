@@ -29,7 +29,7 @@
        echo "<table>";
 
        echo "<tr>";
-       echo "<td>","<img src=\"docker.gif\">   ", "</td>";
+       echo "<td>","<img src=\"http://webserver-s3-dloop-us.s3-website-us-west-2.amazonaws.com/docker.gif\">   ", "</td>";
        echo "</tr>";
 
        echo "<tr>";
